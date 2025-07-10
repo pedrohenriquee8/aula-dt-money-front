@@ -1,4 +1,4 @@
-import { createTransaction, getTransactions } from "@/services/transactions"
+import { createTransaction, deleteTransaction, getTransactionById, getTransactions, updateTransaction } from "@/services/transactions"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 
 const QUERY_KEY = 'qkTransaction'
@@ -18,8 +18,40 @@ const ListAll = () => {
   return useQuery({ queryKey: [QUERY_KEY], queryFn: getTransactions})
 }
 
+const FetchById = (id: string) => {
+  return useQuery({
+    queryKey: [QUERY_KEY, id],
+    queryFn: () => getTransactionById(id),
+  })
+}
+
+const Update = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: updateTransaction,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY] })
+    }
+  })
+}
+
+const Delete = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: deleteTransaction,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY] })
+    }
+  })
+}
+
 export const useTransaction = {
     Create,
     ListAll,
+    FetchById,
+    Update,
+    Delete,
 }
 
