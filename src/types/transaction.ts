@@ -1,9 +1,7 @@
 export interface ITransactionResponse {
     data: ITransaction[];
-    total: number;
-    totalPages: number;
-    pageSize: number;
-    page: number;
+    pagination: ITransactionPagination
+    totals: ITotal;
 }
 
 export interface ITransaction {
@@ -13,6 +11,12 @@ export interface ITransaction {
     category: string;
     data: Date;
     type: "INCOME" | "OUTCOME";
+}
+
+export interface ITransactionPagination {
+    totalPages: number;
+    pageSize: number;
+    page: number;
 }
 
 export type ITotal = {

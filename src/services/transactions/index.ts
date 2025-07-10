@@ -1,8 +1,8 @@
-import { ITransaction } from "@/types/transaction";
+import { ITransaction, ITransactionResponse } from "@/types/transaction";
 import { api } from "../api"
 import { toast } from "react-toastify";
 
-export async function getTransactions(page: number, pageSize: number) {
+export async function getTransactions(page: number, pageSize: number): Promise<ITransactionResponse> {
     try {
       const response = await api.get(`/transaction?page=${page}&pageSize=${pageSize}`); 
       return response.data; 
@@ -11,7 +11,7 @@ export async function getTransactions(page: number, pageSize: number) {
     }
 }
 
-export async function getTransactionById(id: string) {
+export async function getTransactionById(id: string): Promise<ITransaction> {
     try {
         const response = await api.get(`/transaction/${id}`);
         return response.data;
@@ -20,7 +20,7 @@ export async function getTransactionById(id: string) {
     }
 }
 
-export async function createTransaction(transaction: ITransaction) {
+export async function createTransaction(transaction: ITransaction): Promise<ITransaction> {
     try {
         const response = await api.post('/transaction', transaction);
         toast.success("Transação adicionada com sucesso!")
@@ -30,7 +30,7 @@ export async function createTransaction(transaction: ITransaction) {
     }
 }
 
-export async function updateTransaction(transaction: ITransaction) {
+export async function updateTransaction(transaction: ITransaction): Promise<ITransaction> {
     try {
         const response = await api.patch(`/transaction/${transaction.id}`, transaction);
         toast.success("Transação atualizada com sucesso!")
@@ -40,7 +40,7 @@ export async function updateTransaction(transaction: ITransaction) {
     }
 }
 
-export async function deleteTransaction(id: string) {
+export async function deleteTransaction(id: string): Promise<ITransaction> {
     try {
         const response = await api.delete(`/transaction/${id}`);
         toast.success("Transação removida com sucesso!")
