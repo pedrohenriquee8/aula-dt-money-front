@@ -2,9 +2,9 @@ import { ITransaction } from "@/types/transaction";
 import { api } from "../api"
 import { toast } from "react-toastify";
 
-export async function getTransactions() {
+export async function getTransactions(page: number, pageSize: number) {
     try {
-      const response = await api.get('/transaction') 
+      const response = await api.get(`/transaction?page=${page}&pageSize=${pageSize}`); 
       return response.data; 
     } catch (error) {
         throw new Error("Erro ao buscar transações: " + error);
