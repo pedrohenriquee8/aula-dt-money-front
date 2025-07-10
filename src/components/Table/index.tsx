@@ -1,12 +1,11 @@
-import { ITransaction } from "@/types/transaction";
+import { ITransactionResponse } from "@/types/transaction";
 import { formatCurrency, formatDate } from "@/utils";
 
 export interface ITableProps {
-    data: ITransaction[]
+    transactions: ITransactionResponse
 }
 
-export function Table({data}: ITableProps) {   
-
+export function Table({transactions}: ITableProps) {   
     return (  
         <>     
         <table className="w-full mt-16 border-0 border-separate border-spacing-y-2 ">
@@ -19,7 +18,7 @@ export function Table({data}: ITableProps) {
             </tr>
         </thead>
         <tbody>
-            {data.map((transaction, index) => (
+            {transactions.data.map((transaction, index) => (
                 <tr key={index} className="bg-white h-16 rounded-lg">
                     <td className="px-4 py-4 whitespace-nowrap text-title">{transaction.title}</td>
                     <td className={`px-4 py-4 whitespace-nowrap text-right ${transaction.type === 'INCOME'? "text-income" : "text-outcome"}`}>{formatCurrency(transaction.price)}</td>

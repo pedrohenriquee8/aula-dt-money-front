@@ -1,3 +1,11 @@
+export interface ITransactionResponse {
+    data: ITransaction[];
+    total: number;
+    totalPages: number;
+    pageSize: number;
+    page: number;
+}
+
 export interface ITransaction {
     id?: string;
     title: string;

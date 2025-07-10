@@ -21,11 +21,11 @@ export default function Home() {
   }
 
   const totalTransactions: ITotal = useMemo(() => {
-    if (!transactions || transactions.length === 0) {
+    if (!transactions || transactions.data.length === 0) {
       return { totalIncome: 0, totalOutcome: 0, total: 0 };
     }
   
-    return transactions.reduce(
+    return transactions.data.reduce(
       (acc: ITotal, { type, price }: ITransaction) => {
         if (type === 'INCOME') {
           acc.totalIncome += price;
@@ -46,7 +46,7 @@ export default function Home() {
       <Header openModal={openModal} />
       <BodyContainer>
         <CardContainer totals={totalTransactions} />
-        <Table data={transactions} />
+        <Table transactions={transactions} />
         { isModalOpen && <FormModal closeModal={handleCloseModal} formTitle="Adicionar Transação" addTransaction={handleAddModal} /> }
       </BodyContainer>
     </div>
