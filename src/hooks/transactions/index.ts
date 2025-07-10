@@ -15,7 +15,7 @@ const Create = () => {
 }
 
 const ListAll = (page: number, pageSize: number) => {
-  return useQuery({ queryKey: [QUERY_KEY], queryFn: () => getTransactions(page, pageSize) })
+  return useQuery({ queryKey: [QUERY_KEY, page, pageSize], queryFn: () => getTransactions(page, pageSize) })
 }
 
 const FetchById = (id: string) => {
