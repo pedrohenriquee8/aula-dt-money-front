@@ -1,7 +1,7 @@
 import { date, InferType, number, object, string } from "yup";
 import { Input } from "../Form/Input";
 import { TransactionSwitcher } from "../TransactionSwitcher";
-import { ITransaction } from "@/types/transaction";
+import { ITransaction, TransactionType } from "@/types/transaction";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 // Validação do formulário
@@ -39,9 +39,6 @@ const transactionFormDefaultValues: ITransactionForm = {
   price: 0,
   data: new Date()
 }
-
-type TransactionType = 'INCOME' | 'OUTCOME';
-
 
 export function FormModal({formTitle, closeModal, addTransaction}: IFormModalProps){
     // Função para lidar com o envio do formulário

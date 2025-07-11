@@ -1,3 +1,5 @@
+export type TransactionType = 'INCOME' | 'OUTCOME';
+
 export interface ITransactionResponse {
     data: ITransaction[];
     pagination: ITransactionPagination
@@ -10,7 +12,7 @@ export interface ITransaction {
     price: number;
     category: string;
     data: Date;
-    type: "INCOME" | "OUTCOME";
+    type: TransactionType;
 }
 
 export interface ITransactionPagination {
