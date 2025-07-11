@@ -2,6 +2,7 @@ import { ITransaction } from "@/types/transaction";
 import { formatCurrency, formatDate } from "@/utils";
 import { ConfirmTransactionDeletion } from "../Modal/ConfirmTransactionDeletion";
 import { useState } from "react";
+import { EditTransactionModal } from "../Modal/EditTransaction";
 
 export interface ITableProps {
   transactions: ITransaction[] | undefined;
@@ -9,6 +10,8 @@ export interface ITableProps {
 
 export function Table({ transactions }: ITableProps) {
   const [transactionToBeDeleted, setTransactionToBeDeleted] =
+    useState<ITransaction | null>(null);
+  const [transactionToBeEdited, setTransactionToBeEdited] =
     useState<ITransaction | null>(null);
 
   if (!transactions || transactions.length === 0) {
@@ -26,6 +29,14 @@ export function Table({ transactions }: ITableProps) {
   const handleCloseDeleteTransactionModal = () => {
     setTransactionToBeDeleted(null);
   }
+
+  const handleOpenEditTransactionModal = (transaction: ITransaction) => {
+    setTransactionToBeEdited(transaction);
+  };
+
+  const handleCloseEditTransactionModal = () => {
+    setTransactionToBeEdited(null);
+  };
 
   return (
     <>
@@ -69,7 +80,7 @@ export function Table({ transactions }: ITableProps) {
                 {transaction.data ? formatDate(new Date(transaction.data)) : ""}
               </td>
               <td className="px-4 py-4 whitespace-nowrap">
-                <button className="text-blue-500 hover:underline cursor-pointer">
+                <button onClick={() => handleOpenEditTransactionModal(transaction)} className="text-blue-500 hover:underline cursor-pointer">
                   Editar
                 </button>
                 <button
@@ -85,6 +96,12 @@ export function Table({ transactions }: ITableProps) {
       </table>
       {transactionToBeDeleted && (
         <ConfirmTransactionDeletion transaction={transactionToBeDeleted} handleCloseDeleteTransactionModal={handleCloseDeleteTransactionModal} />
+      )}
+      {transactionToBeEdited && (
+        <EditTransactionModal
+          transaction={transactionToBeEdited}
+          handleCloseEditTransactionModal={handleCloseEditTransactionModal}
+        />
       )}
     </>
   );
