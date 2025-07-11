@@ -1,4 +1,5 @@
 import { createTransaction, deleteTransaction, getTransactionById, getTransactions, updateTransaction } from "@/services/transactions"
+import { ITransaction } from "@/types/transaction"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 
 const QUERY_KEY = 'qkTransaction'
@@ -25,11 +26,11 @@ const FetchById = (id: string) => {
   })
 }
 
-const Update = () => {
+const Update = (id: string) => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: updateTransaction,
+    mutationFn: (transaction: ITransaction) => updateTransaction(id, transaction),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY] })
     }

@@ -30,9 +30,9 @@ export async function createTransaction(transaction: ITransaction): Promise<ITra
     }
 }
 
-export async function updateTransaction(transaction: ITransaction): Promise<ITransaction> {
+export async function updateTransaction(id: string, transaction: ITransaction): Promise<ITransaction> {
     try {
-        const response = await api.patch(`/transaction/${transaction.id}`, transaction);
+        const response = await api.patch(`/transaction/${id}`, transaction);
         toast.success("Transação atualizada com sucesso!")
         return response.data;
     } catch (error) {
